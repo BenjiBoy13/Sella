@@ -1,0 +1,15 @@
+users:
+  controller: App\Controllers\UserController
+  prefix: /users
+  paths:
+    - path: /show
+      method: GET
+      action: showAction
+
+tokens:
+  controller: App\Controllers\TokensController
+  prefix: /auth
+  paths:
+    - path: /bla
+      method: GET
+      action: blaAction

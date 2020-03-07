@@ -1,0 +1,40 @@
+root:
+  controller: App\Controllers\RootController
+  paths:
+    - path: /
+      method: GET
+      action: indexAction
+      services:
+        - App\Services\Service
+    - path: /about
+      method: GET
+      action: aboutAction
+
+books:
+  controller: App\Controllers\BooksController
+  prefix: /books
+  paths:
+    - path: /all
+      method: GET
+      action: allAction
+    - path: /show/(var)
+      method: GET
+      action: showAction
+      services:
+        - Stella\Services\ExampleService
+
+users:
+  controller: App\Controllers\UserController
+  prefix: /users
+  paths:
+    - path: /show
+      method: GET
+      action: showAction
+
+tokens:
+  controller: App\Controllers\TokensController
+  prefix: /auth
+  paths:
+    - path: /bla
+      method: GET
+      action: blaAction

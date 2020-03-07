@@ -1,0 +1,12 @@
+books:
+  controller: App\Controllers\BooksController
+  prefix: /books
+  paths:
+    - path: /all
+      method: GET
+      action: allAction
+    - path: /show/(var)
+      method: GET
+      action: showAction
+      services:
+        - Stella\Services\ExampleService
