@@ -1,9 +1,10 @@
 <?php
 
 
-namespace Stella\Core;
+namespace Stella\Modules\Http;
 
 use Stella\Exceptions\Core\Configuration\{ConfigurationFileNotFoundException, ConfigurationFileNotYmlException};
+use Stella\Core\Configuration;
 
 /**
  * -----------------------------------------
@@ -49,5 +50,18 @@ class Http
             'uri' => $uri,
             'method' => $_SERVER['REQUEST_METHOD']
         );
+    }
+
+    public function getRequestData (int $dataType) : array
+    {
+        switch ($dataType) {
+            case 0:
+                return $_GET;
+            case 1:
+                return $_POST;
+            case 3:
+            case 4:
+                return file_get_contents("php:://input");
+        }
     }
 }

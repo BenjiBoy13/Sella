@@ -2,8 +2,8 @@
 
 namespace Stella;
 
-use Stella\Core\Http;
 use Stella\Core\Router;
+use Stella\Modules\Http\Http;
 
 class Kernel
 {
@@ -21,6 +21,8 @@ class Kernel
         $http = new Http();
 
         set_exception_handler([$this, 'exception_handler']);
+
+
 
         $method = $http->retrieveRequestedPath()['method'];
         $uri = $http->retrieveRequestedPath()['uri'];
