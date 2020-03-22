@@ -1,0 +1,11 @@
+testing-one:
+  controller: Stella\Controllers\Tests\TestOneController
+  prefix: /testing-one
+  paths:
+    - path: /a/(var)
+      method: GET
+      action: indexAction
+    - path: /b
+      method: GET
+      action: notAnAction
+

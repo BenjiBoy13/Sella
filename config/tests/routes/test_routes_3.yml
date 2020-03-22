@@ -1,0 +1,7 @@
+testing-three:
+  controller: Stella\Controllers\Tests\TestThirdController
+  prefix: /testing-three
+  paths:
+    - path: /dont-know
+      method: GET
+      action: indexAction

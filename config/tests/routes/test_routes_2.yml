@@ -1,0 +1,7 @@
+testing-two:
+  controller: Stella\Controllers\Tests\TestTwoController
+  prefix: /testing-two
+  paths:
+    - path: /c
+      method: GET
+      action: indexAction

@@ -25,7 +25,7 @@ class ConfigurationTest extends TestCase
     {
         $expectedArray = $this->configuration->getConfigurationOfFile("./config/tests/routes_test.yml");
 
-        $routesArray = $this->configuration->getRoutesOutOfConfigurationFiles();
+        $routesArray = $this->configuration->getRoutesOutOfConfigurationFiles("./config/tests/routes/");
 
         $this->assertEquals($expectedArray, $routesArray);
     }

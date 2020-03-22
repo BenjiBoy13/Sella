@@ -53,21 +53,22 @@ class Configuration
      * Reads all yml files found in routes directory
      * and parses their content into one routes array.
      *
+     * @param string $routesDirPath
      * @return array
      * @throws ConfigurationFileNotFoundException
      * @throws ConfigurationFileNotYmlException
      */
-    public function getRoutesOutOfConfigurationFiles () : array
+    public function getRoutesOutOfConfigurationFiles (string $routesDirPath = "./config/routes") : array
     {
         $routes = array();
 
-        $routeFiles = scandir("./config/routes", 1);
+        $routeFiles = scandir($routesDirPath, 1);
 
         foreach ($routeFiles as $routeFile) {
-            $fileExtension = pathinfo("./config/routes/$routeFile")['extension'];
+            $fileExtension = pathinfo($routesDirPath . $routeFile)['extension'];
 
             if ($fileExtension === 'yml') {
-                $currentRouteFileArray = $this->getConfigurationOfFile("./config/routes/$routeFile");
+                $currentRouteFileArray = $this->getConfigurationOfFile($routesDirPath . $routeFile);
 
                 foreach ($currentRouteFileArray as $key => $value) {
                     $routes[$key] = $value;

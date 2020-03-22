@@ -1,40 +1,26 @@
-root:
-  controller: App\Controllers\RootController
+testing-one:
+  controller: Stella\Controllers\Tests\TestOneController
+  prefix: /testing-one
   paths:
-    - path: /
+    - path: /a/(var)
       method: GET
       action: indexAction
-      services:
-        - App\Services\Service
-    - path: /about
+    - path: /b
       method: GET
-      action: aboutAction
+      action: notAnAction
 
-books:
-  controller: App\Controllers\BooksController
-  prefix: /books
+testing-two:
+  prefix: /testing-two
+  controller: Stella\Controllers\Tests\TestTwoController
   paths:
-    - path: /all
+    - path: /c
       method: GET
-      action: allAction
-    - path: /show/(var)
-      method: GET
-      action: showAction
-      services:
-        - Stella\Services\ExampleService
+      action: indexAction
 
-users:
-  controller: App\Controllers\UserController
-  prefix: /users
+testing-three:
+  prefix: /testing-three
+  controller: Stella\Controllers\Tests\TestThirdController
   paths:
-    - path: /show
+    - path: /dont-know
       method: GET
-      action: showAction
-
-tokens:
-  controller: App\Controllers\TokensController
-  prefix: /auth
-  paths:
-    - path: /bla
-      method: GET
-      action: blaAction
+      action: indexAction
