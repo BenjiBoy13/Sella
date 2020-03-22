@@ -7,6 +7,7 @@ namespace Stella\Core;
 use PHPUnit\Framework\TestCase;
 use Stella\Exceptions\Core\Configuration\ConfigurationFileNotFoundException;
 use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
+use Symfony\Component\Dotenv\Dotenv;
 
 class ConfigurationTest extends TestCase
 {
@@ -15,6 +16,9 @@ class ConfigurationTest extends TestCase
     public function setUp(): void
     {
         $this->configuration = new Configuration();
+
+        $dotenv = new Dotenv();
+        $dotenv->load('./.env');
     }
 
     public function test_if_routes_are_correctly_injected_in_array ()
@@ -24,19 +28,6 @@ class ConfigurationTest extends TestCase
         $routesArray = $this->configuration->getRoutesOutOfConfigurationFiles();
 
         $this->assertEquals($expectedArray, $routesArray);
-    }
-
-    public function test_configuration_file_is_giving_expected_array ()
-    {
-        $expectedServerArray = array(
-            'debug' => true,
-            'app_name' => 'appname',
-            'web_root' => '/stella'
-        );
-
-        $serverFileArray = $this->configuration->getConfigurationOfFile("./config/server.yml");
-
-        $this->assertEquals($expectedServerArray, $serverFileArray);
     }
 
     public function test_configuration_file_not_found_exception ()
@@ -49,7 +40,25 @@ class ConfigurationTest extends TestCase
     public function test_configuration_file_not_yml ()
     {
         $this->expectException(ConfigurationFileNotYmlException::class);
-        $this->expectExceptionMessage("The configuration file ./config/text.txt is not a yml file");
-        $this->configuration->getConfigurationOfFile("./config/text.txt");
+        $this->expectExceptionMessage("The configuration file ./config/tests/text.txt is not a yml file");
+        $this->configuration->getConfigurationOfFile("./config/tests/text.txt");
+    }
+
+    public function test_env_variables_in_yml_files ()
+    {
+        $expectedArray = array(
+            'value' => array(
+                'other_value' => 1,
+                'x' => array(
+                    2,
+                ),
+                'z' => 2
+            ),
+            'w' => "spaguetti"
+        );
+
+        $this->assertEquals($expectedArray,
+            $this->configuration->getConfigurationOfFile('./config/tests/env_test.yml')
+        );
     }
 }

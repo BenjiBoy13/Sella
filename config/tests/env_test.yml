@@ -1,0 +1,7 @@
+value:
+  other_value: env(TEST_VALUE)
+  x:
+    - env(TEST_SECOND_VALUE)
+  z: env(TEST_SECOND_VALUE)
+
+w: env(TEST_THIRD_VALUE)

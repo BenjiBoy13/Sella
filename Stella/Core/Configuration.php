@@ -44,6 +44,8 @@ class Configuration
 
         $configurationVariablesArray = Yaml::parseFile($filePath);
 
+        $this->replaceEnvVariablesInFile($configurationVariablesArray);
+
         return $configurationVariablesArray ? $configurationVariablesArray : array();
     }
 
@@ -74,6 +76,28 @@ class Configuration
         }
 
         return $routes;
+    }
+
+    /**
+     * Walks through the a yaml file array and replaces the env
+     * key value with the actual environment variable
+     *
+     * @param array $yamlArray
+     */
+    private function replaceEnvVariablesInFile (array &$yamlArray) : void
+    {
+        array_walk_recursive($yamlArray, function (&$item) {
+            // The value of the element must start with 'env('
+            if (substr($item, 0, 4) === 'env(') {
+                // ENV Key must be wrapper in parenthesis
+                preg_match('#\((.*?)\)#', $item, $match);
+
+                // Sets the actual env value
+                if (isset($match[1])) {
+                    $item = $_ENV[$match[1]];
+                }
+            }
+        });
     }
 }
 

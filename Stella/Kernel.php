@@ -4,6 +4,7 @@ namespace Stella;
 
 use Stella\Core\Router;
 use Stella\Modules\Http\Http;
+use Symfony\Component\Dotenv\Dotenv;
 
 class Kernel
 {
@@ -19,10 +20,11 @@ class Kernel
     {
         $router = new Router();
         $http = new Http();
+        $dotEnv = new Dotenv();
+
+        $dotEnv->load('./.env');
 
         set_exception_handler([$this, 'exception_handler']);
-
-
 
         $method = $http->retrieveRequestedPath()['method'];
         $uri = $http->retrieveRequestedPath()['uri'];
