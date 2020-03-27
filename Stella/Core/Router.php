@@ -53,7 +53,7 @@ class Router
      */
     public function enableRouting (string $requestedPath, string $requestedMethod) : bool
     {
-        $routes = $this->configuration->getRoutesOutOfConfigurationFiles("./config/tests/routes/");
+        $routes = $this->configuration->getRoutesOutOfConfigurationFiles(STELLA_ROOT . "/config/tests/routes/");
 
         // Verifying that there are routes defined in the configuration files
         if (empty($routes)) {

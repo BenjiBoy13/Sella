@@ -15,7 +15,8 @@ class StellaTwigLoader
 
     public function __construct()
     {
-        $this->twigLoader = new FilesystemLoader("templates/");
+        $this->twigLoader = new FilesystemLoader( "./Resources/templates");
+        $this->twigLoader->addPath(STELLA_ROOT . "/Resources/templates/tests", 'Stella');
         $this->twigEnvironment = new Environment($this->twigLoader);
     }
 

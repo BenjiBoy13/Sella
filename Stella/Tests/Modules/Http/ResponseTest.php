@@ -1,7 +1,11 @@
 <?php
 
+namespace Stella\Tests\Modules\Http;
+
 use PHPUnit\Framework\TestCase;
 use Stella\Modules\Http\Response;
+
+require_once '/Users/benjamin_gil/Sites/stella/Stella/constants.php';
 
 class ResponseTest extends TestCase
 {
@@ -14,7 +18,7 @@ class ResponseTest extends TestCase
 
     public function test_valid_twig_view ()
     {
-        $twigLoaded = $this->response->renderView("books.html.twig");
+        $twigLoaded = $this->response->renderView("@Stella/books.html.twig");
         $this->assertEquals(true, $twigLoaded);
     }
 

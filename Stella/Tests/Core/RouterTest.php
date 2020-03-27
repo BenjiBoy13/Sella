@@ -1,7 +1,10 @@
 <?php
 
+namespace Stella\Tests\Core;
 
 use Stella\Core\Router;
+
+require_once '/Users/benjamin_gil/Sites/stella/Stella/constants.php';
 
 class RouterTest extends \PHPUnit\Framework\TestCase
 {
@@ -14,7 +17,7 @@ class RouterTest extends \PHPUnit\Framework\TestCase
 
     public function test_match_case ()
     {
-        $this->assertEquals(true, $this->router->enableRouting("/testing-one/a/10", "GET"));
+        $this->assertEquals(true, $this->router->enableRouting( "/testing-one/a/10", "GET"));
     }
 
     public function test_no_route_mach_exception ()

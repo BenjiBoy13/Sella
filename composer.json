@@ -14,10 +14,9 @@
     },
     "autoload": {
         "psr-4": {
-	    "Stella\\": "Stella/",
-            "App\\": "src/"
+	        "Stella\\": "Stella/"
         },
-        "classmap": ["src/", "Stella/"]
+        "classmap": ["Stella/"]
     },
     "license": "GPL",
     "authors": [
