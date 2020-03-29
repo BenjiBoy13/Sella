@@ -5,8 +5,6 @@ namespace Stella\Tests\Modules\Http;
 use PHPUnit\Framework\TestCase;
 use Stella\Modules\Http\Response;
 
-require_once '/Users/benjamin_gil/Sites/stella/Stella/constants.php';
-
 class ResponseTest extends TestCase
 {
     private Response $response;

@@ -4,8 +4,6 @@ namespace Stella\Tests\Core;
 
 use Stella\Core\Router;
 
-require_once '/Users/benjamin_gil/Sites/stella/Stella/constants.php';
-
 class RouterTest extends \PHPUnit\Framework\TestCase
 {
     protected Router $router;
