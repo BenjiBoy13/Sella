@@ -2,6 +2,8 @@
 
 namespace Stella;
 
+use Composer\Autoload\ClassLoader;
+use ReflectionException;
 use Stella\Core\Router;
 use Stella\Modules\Http\Http;
 use Symfony\Component\Dotenv\Dotenv;
@@ -15,6 +17,7 @@ class Kernel
      * @throws Exceptions\Core\Routing\ActionNotFoundException
      * @throws Exceptions\Core\Routing\ControllerNotFoundException
      * @throws Exceptions\Core\Routing\NoRoutesFoundException
+     * @throws ReflectionException
      */
     public function __construct ()
     {
@@ -22,13 +25,16 @@ class Kernel
         $http = new Http();
         $dotEnv = new Dotenv();
 
-        $dotEnv->load('./.env');
+        $reflection = new \ReflectionClass(ClassLoader::class);
+
+        define("PROJECT_DIR", dirname($reflection->getFileName(), 3));
+
+        $dotEnv->load(PROJECT_DIR . '/.env');
 
         set_exception_handler([$this, 'exception_handler']);
 
         $method = $http->retrieveRequestedPath()['method'];
         $uri = $http->retrieveRequestedPath()['uri'];
-
         $router->enableRouting($uri, $method);
     }
 
