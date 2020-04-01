@@ -16,7 +16,7 @@ class ResponseTest extends TestCase
 
     public function test_valid_twig_view ()
     {
-        $twigLoaded = $this->response->renderView("@Stella/books.html.twig");
+        $twigLoaded = $this->response->renderView("@Stella/tests/template-test.html.twig");
         $this->assertEquals(true, $twigLoaded);
     }
 

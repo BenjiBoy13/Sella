@@ -5,28 +5,26 @@ namespace Stella\Modules\Twig\Extensions;
 
 
 use Twig\Extension\AbstractExtension;
-use Twig\Extension\GlobalsInterface;
+use Twig\Extension\ExtensionInterface;
 
 /**
  * -----------------------------------------
- * Class StellaTwigGlobals
+ * Class StellaTwigFilters
  * -----------------------------------------
  *
- * Defines Stella Twig global extension
+ * Defines Stella Twig filters extension
  *
  * @author Benjamin Gil Flores
  * @version NaN
  * @package Stella\Modules\Twig\Extensions
  */
-class StellaTwigGlobals extends AbstractExtension implements GlobalsInterface
+class StellaTwigFilters extends AbstractExtension implements ExtensionInterface
 {
     /**
      * @return array
      */
-    public function getGlobals() : array
+    public function getFilters() : array
     {
-        return array(
-          'global1' => 'Variable global 1'
-        );
+        return array();
     }
 }
