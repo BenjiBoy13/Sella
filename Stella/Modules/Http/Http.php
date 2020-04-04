@@ -5,6 +5,7 @@ namespace Stella\Modules\Http;
 
 use Stella\Exceptions\Core\Configuration\{ConfigurationFileNotFoundException, ConfigurationFileNotYmlException};
 use Stella\Core\Configuration;
+use Stella\Exceptions\Modules\Http\InvalidRequestDataModeException;
 
 /**
  * -----------------------------------------
@@ -23,6 +24,11 @@ class Http
      * @var Configuration Holds a Configuration class instance
      */
     private Configuration $configuration;
+
+    /**
+     * @var array
+     */
+    private array $requestData = array();
 
     /**
      * Http constructor.
@@ -52,16 +58,46 @@ class Http
         );
     }
 
-    public function getRequestData (int $dataType) : array
+    /**
+     * @param int $mode
+     * @return $this
+     * @throws InvalidRequestDataModeException
+     */
+    public function setRequestDataMode (int $mode) : self
     {
-        switch ($dataType) {
-            case 0:
-                return $_GET;
-            case 1:
-                return $_POST;
-            case 3:
-            case 4:
-                return file_get_contents("php:://input");
+        if ($mode === 1) {
+            $this->requestData = $_POST;
+        } else if ($mode === 2) {
+            $this->requestData = $_GET;
+        } else {
+            throw new InvalidRequestDataModeException("The mode $mode is not valid, try 1|2");
         }
+
+        return $this;
+    }
+
+    public function sanitize () : self
+    {
+        if (!empty($this->requestData)) {
+            array_walk_recursive($this->requestData, [$this, 'sanitizeValue']);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequestData () : array
+    {
+        return $this->requestData;
+    }
+
+    private function sanitizeValue (&$value)
+    {
+        $value = trim($value);
+        $value = preg_replace("/\s+/", " ", $value);
+        $value = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $value);
+        $value = preg_replace("/^<\?php(.*)(\?>)?$/s", '', $value);
     }
 }

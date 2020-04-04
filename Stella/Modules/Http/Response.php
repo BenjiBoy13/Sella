@@ -4,10 +4,16 @@
 namespace Stella\Modules\Http;
 
 
+use Stella\Core\Configuration;
+use Stella\Exceptions\Core\Configuration\ConfigurationFileNotFoundException;
+use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
 use Stella\Exceptions\Modules\Http\InvalidHttpResponseCode;
 use Stella\Exceptions\Modules\Http\TwigRenderException;
+use Stella\Exceptions\Modules\Twig\CustomTwigExtensionNotFoundException;
+use Stella\Exceptions\Modules\Twig\DirectoryDoesNotExistException;
 use Stella\Modules\Twig\StellaTwigLoader;
 use Twig\Error\Error;
+use Twig\Error\LoaderError;
 
 /**
  * -----------------------------------------
@@ -29,11 +35,17 @@ class Response
     protected StellaTwigLoader $stellaTwig;
 
     /**
+     * @var Configuration
+     */
+    protected Configuration $configuration;
+
+    /**
      * Response constructor.
      */
     public function __construct()
     {
         $this->stellaTwig = new StellaTwigLoader();
+        $this->configuration = new Configuration();
     }
 
     /**
@@ -43,10 +55,33 @@ class Response
      * @param string $templatePath
      * @param array $data
      * @return bool
+     * @throws ConfigurationFileNotFoundException
+     * @throws ConfigurationFileNotYmlException
      * @throws TwigRenderException
+     * @throws CustomTwigExtensionNotFoundException
+     * @throws DirectoryDoesNotExistException
+     * @throws LoaderError
      */
     public function renderView (string $templatePath, array $data = array()) : bool
     {
+        $twigConfig = $this->configuration->getConfigurationOfFile(PROJECT_DIR . "/config/twig.yml");
+
+        // Declaring custom namespaces
+        if (isset($twigConfig['namespaces'])) {
+            foreach ($twigConfig['namespaces'] as $namespace) {
+                if (isset($namespace['directory']) && isset($namespace['name'])) {
+                    $this->stellaTwig->addTwigNamespace(PROJECT_DIR . $namespace['directory'], $namespace['name']);
+                }
+            }
+        }
+
+        // Declaring custom extensions
+        if (isset($twigConfig['extensions'])) {
+            foreach ($twigConfig['extensions'] as $extension) {
+                $this->stellaTwig->addTwigCustomExtension($extension);
+            }
+        }
+
         $twig = $this->stellaTwig->getTwigEnvironment();
 
         try {

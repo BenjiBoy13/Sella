@@ -16,6 +16,7 @@ class ResponseTest extends TestCase
 
     public function test_valid_twig_view ()
     {
+        define("PROJECT_DIR", dirname(__DIR__, 3));
         $twigLoaded = $this->response->renderView("@Stella/tests/template-test.html.twig");
         $this->assertEquals(true, $twigLoaded);
     }
