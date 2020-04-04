@@ -44,7 +44,9 @@ class Configuration
 
         $configurationVariablesArray = Yaml::parseFile($filePath);
 
-        $this->replaceEnvVariablesInFile($configurationVariablesArray);
+        if ($configurationVariablesArray) {
+            $this->replaceEnvVariablesInFile($configurationVariablesArray);
+        }
 
         return $configurationVariablesArray ? $configurationVariablesArray : array();
     }
@@ -58,7 +60,7 @@ class Configuration
      * @throws ConfigurationFileNotFoundException
      * @throws ConfigurationFileNotYmlException
      */
-    public function getRoutesOutOfConfigurationFiles (string $routesDirPath = "./config/routes") : array
+    public function getRoutesOutOfConfigurationFiles (string $routesDirPath) : array
     {
         $routes = array();
 

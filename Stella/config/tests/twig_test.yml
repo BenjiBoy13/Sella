@@ -1,0 +1,4 @@
+namespaces:
+  - { name: 'app', directory: '/path/to/file' }
+extensions:
+  - App\Extensions\ClassName

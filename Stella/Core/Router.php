@@ -44,16 +44,21 @@ class Router
      *
      * @param string $requestedPath
      * @param string $requestedMethod
+     * @param bool $testRoutes
      * @return bool
      * @throws ActionNotFoundException
-     * @throws ControllerNotFoundException
-     * @throws NoRoutesFoundException
      * @throws ConfigurationFileNotFoundException
      * @throws ConfigurationFileNotYmlException
+     * @throws ControllerNotFoundException
+     * @throws NoRoutesFoundException
      */
-    public function enableRouting (string $requestedPath, string $requestedMethod) : bool
+    public function enableRouting (string $requestedPath, string $requestedMethod, bool $testRoutes = false) : bool
     {
-        $routes = $this->configuration->getRoutesOutOfConfigurationFiles( dirname(__DIR__, 1) . "/config/tests/routes/");
+        if ($testRoutes) {
+            $routes = $this->configuration->getRoutesOutOfConfigurationFiles( dirname(__DIR__, 1) . "/config/tests/routes/");
+        } else {
+            $routes = $this->configuration->getRoutesOutOfConfigurationFiles(PROJECT_DIR . '/config/routes');
+        }
 
         // Verifying that there are routes defined in the configuration files
         if (empty($routes)) {
@@ -118,6 +123,13 @@ class Router
      */
     private function checkIfMatch (string $path, string $requestedUri) : ?array
     {
+        // Removing last forward slash and get params
+        $requestedUri = strtok($requestedUri, "?");
+
+        if (substr($requestedUri, -1) == '/') {
+            $requestedUri = substr($requestedUri, 0, '-1');
+        }
+
         // Fragmenting paths
         $pathFragments = explode("/", $path);
         $requestedUriFragments = explode("/", $requestedUri);

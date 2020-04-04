@@ -60,4 +60,22 @@ class ConfigurationTest extends TestCase
             $this->configuration->getConfigurationOfFile(dirname(__DIR__, 2) . '/config/tests/env_test.yml')
         );
     }
+
+    public function test_array_formatting ()
+    {
+        $expectedArray = array(
+            'namespaces' => array(
+                array(
+                    'name' => 'app',
+                    'directory' => '/path/to/file'
+                )
+            ),
+            'extensions' => array(
+                'App\Extensions\ClassName'
+            )
+        );
+
+        $this->assertEquals($expectedArray,
+            $this->configuration->getConfigurationOfFile(dirname(__DIR__, 2) . '/config/tests/twig_test.yml'));
+    }
 }
