@@ -1,5 +1,5 @@
 {
-    "name": "cosmos/stella",
+    "name": "cluster/stella",
     "description": "Micro PHP Framework",
     "type": "framework",
     "require": {
