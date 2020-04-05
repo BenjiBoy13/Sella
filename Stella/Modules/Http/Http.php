@@ -47,7 +47,7 @@ class Http
      */
     public function retrieveRequestedPath () : array
     {
-        $serverConf = $this->configuration->getConfigurationOfFile("./config/server.yml");
+        $serverConf = $this->configuration->getConfigurationOfFile(PROJECT_DIR . "/config/server.yml");
         $uri = isset($serverConf['web_root']) ?
             str_replace($serverConf['web_root'], "", $_SERVER['REQUEST_URI']) :
             $_SERVER['REQUEST_URI'];

@@ -1,3 +1,3 @@
-#Stella Microframework
+# Stella Micro Framework
 
-Documentation will go here
+In construction ... 

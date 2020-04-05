@@ -21,6 +21,8 @@ class Kernel
      */
     public function __construct ()
     {
+        set_exception_handler([$this, 'exception_handler']);
+
         $router = new Router();
         $http = new Http();
         $dotEnv = new Dotenv();
@@ -30,8 +32,6 @@ class Kernel
         define("PROJECT_DIR", dirname($reflection->getFileName(), 3));
 
         $dotEnv->load(PROJECT_DIR . '/.env');
-
-        set_exception_handler([$this, 'exception_handler']);
 
         $method = $http->retrieveRequestedPath()['method'];
         $uri = $http->retrieveRequestedPath()['uri'];

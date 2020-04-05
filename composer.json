@@ -19,7 +19,7 @@
         },
         "classmap": ["Stella/"]
     },
-    "license": "GPL",
+    "license": "MIT",
     "authors": [
         {
             "name": "Benjamin Gil Flores",

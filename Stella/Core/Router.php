@@ -57,12 +57,12 @@ class Router
         if ($testRoutes) {
             $routes = $this->configuration->getRoutesOutOfConfigurationFiles( dirname(__DIR__, 1) . "/config/tests/routes/");
         } else {
-            $routes = $this->configuration->getRoutesOutOfConfigurationFiles(PROJECT_DIR . '/config/routes');
+            $routes = $this->configuration->getRoutesOutOfConfigurationFiles(PROJECT_DIR . '/config/routes/');
         }
 
         // Verifying that there are routes defined in the configuration files
         if (empty($routes)) {
-            throw new NoRoutesFoundException("No routes found in `routes.yml`");
+            throw new NoRoutesFoundException("No routes found in routes directory");
         }
 
         // Looping to all expected routes
