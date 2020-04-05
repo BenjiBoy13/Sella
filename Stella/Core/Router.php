@@ -126,7 +126,7 @@ class Router
         // Removing last forward slash and get params
         $requestedUri = strtok($requestedUri, "?");
 
-        if (substr($requestedUri, -1) == '/') {
+        if (substr($requestedUri, -1) == '/' && $requestedUri !== "/") {
             $requestedUri = substr($requestedUri, 0, '-1');
         }
 
