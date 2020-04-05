@@ -25,6 +25,8 @@ use Twig\Error\LoaderError;
  * code; Response can be JSON formatted or
  * an html view powered by the twig engine
  *
+ * @author Benjamin Gil Flores
+ * @version NaN
  * @package Stella\Modules\Http
  */
 class Response
@@ -64,25 +66,7 @@ class Response
      */
     public function renderView (string $templatePath, array $data = array()) : bool
     {
-        $twigConfig = $this->configuration->getConfigurationOfFile(PROJECT_DIR . "/config/twig.yml");
-
-        // Declaring custom namespaces
-        if (isset($twigConfig['namespaces'])) {
-            foreach ($twigConfig['namespaces'] as $namespace) {
-                if (isset($namespace['directory']) && isset($namespace['name'])) {
-                    $this->stellaTwig->addTwigNamespace(PROJECT_DIR . $namespace['directory'], $namespace['name']);
-                }
-            }
-        }
-
-        // Declaring custom extensions
-        if (isset($twigConfig['extensions'])) {
-            foreach ($twigConfig['extensions'] as $extension) {
-                $this->stellaTwig->addTwigCustomExtension($extension);
-            }
-        }
-
-        $twig = $this->stellaTwig->getTwigEnvironment();
+        $twig = $this->stellaTwig->loadTwigConf()->getTwigEnvironment();
 
         try {
             echo $twig->render($templatePath, $data);

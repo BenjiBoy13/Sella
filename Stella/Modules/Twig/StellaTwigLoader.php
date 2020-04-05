@@ -4,6 +4,9 @@
 namespace Stella\Modules\Twig;
 
 
+use Stella\Core\Configuration;
+use Stella\Exceptions\Core\Configuration\ConfigurationFileNotFoundException;
+use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
 use Stella\Exceptions\Modules\Twig\CustomTwigExtensionNotFoundException;
 use Stella\Exceptions\Modules\Twig\DirectoryDoesNotExistException;
 use Stella\Modules\Twig\Extensions\StellaTwigFilters;
@@ -31,6 +34,11 @@ class StellaTwigLoader
     private FilesystemLoader $twigLoader;
 
     /**
+     * @var Configuration
+     */
+    private Configuration $configuration;
+
+    /**
      * StellaTwigLoader constructor.
      * @throws LoaderError
      */
@@ -38,6 +46,7 @@ class StellaTwigLoader
     {
         $this->twigLoader = new FilesystemLoader();
         $this->twigEnvironment = new Environment($this->twigLoader);
+        $this->configuration = new Configuration();
 
         // Declaring Stella custom extensions
         $this->twigEnvironment->addExtension(new StellaTwigGlobals());
@@ -92,5 +101,36 @@ class StellaTwigLoader
 
         $this->twigEnvironment->addExtension($customExtension);
         return true;
+    }
+
+    /**
+     * @return $this
+     * @throws CustomTwigExtensionNotFoundException
+     * @throws DirectoryDoesNotExistException
+     * @throws LoaderError
+     * @throws ConfigurationFileNotFoundException
+     * @throws ConfigurationFileNotYmlException
+     */
+    public function loadTwigConf () : self
+    {
+        $twigConfig = $this->configuration->getConfigurationOfFile(PROJECT_DIR . "/config/twig.yml");
+
+        // Declaring custom namespaces
+        if (isset($twigConfig['namespaces'])) {
+            foreach ($twigConfig['namespaces'] as $namespace) {
+                if (isset($namespace['directory']) && isset($namespace['name'])) {
+                    $this->addTwigNamespace(PROJECT_DIR . $namespace['directory'], $namespace['name']);
+                }
+            }
+        }
+
+        // Declaring custom extensions
+        if (isset($twigConfig['extensions'])) {
+            foreach ($twigConfig['extensions'] as $extension) {
+                $this->addTwigCustomExtension($extension);
+            }
+        }
+
+        return $this;
     }
 }

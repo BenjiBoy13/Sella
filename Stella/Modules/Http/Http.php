@@ -59,6 +59,9 @@ class Http
     }
 
     /**
+     * Sets the requested data to either the POST
+     * magical variable or the GET magical variable
+     *
      * @param int $mode
      * @return $this
      * @throws InvalidRequestDataModeException
@@ -76,6 +79,12 @@ class Http
         return $this;
     }
 
+    /**
+     * Walks through the request data array
+     * and sends each value to sanitization
+     *
+     * @return $this
+     */
     public function sanitize () : self
     {
         if (!empty($this->requestData)) {
@@ -86,6 +95,8 @@ class Http
     }
 
     /**
+     * Returns request data
+     *
      * @return array
      */
     public function getRequestData () : array
@@ -93,6 +104,13 @@ class Http
         return $this->requestData;
     }
 
+    /**
+     * Sanitize values by removing script tags
+     * preventing XSS attacks, it also trims the
+     * values and remove any extra white spaces
+     *
+     * @param $value
+     */
     private function sanitizeValue (&$value)
     {
         $value = trim($value);

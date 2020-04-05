@@ -7,11 +7,35 @@ use ReflectionException;
 use Stella\Core\Router;
 use Stella\Modules\Http\Http;
 use Symfony\Component\Dotenv\Dotenv;
+use Throwable;
 
+/**
+ * -----------------------------------------
+ * Class Kernel
+ * -----------------------------------------
+ *
+ * Stella Kernel, fires up the framework by
+ * taking the incoming request and hands it
+ * to the router core class which will look
+ * into the configuration files and launch the
+ * proper controller with the method wired up to
+ * the path action.
+ *
+ * Also all exceptions end here in the kernel class
+ * to be handled properly.
+ *
+ * @author Benjamin Gil Flores
+ * @version NaN
+ * @package Stella
+ */
 class Kernel
 {
     /**
      * Kernel constructor.
+     * Enables the exception handler, defines the project
+     * root directory, takes the incoming request
+     * and fires up the application.
+     *
      * @throws Exceptions\Core\Configuration\ConfigurationFileNotFoundException
      * @throws Exceptions\Core\Configuration\ConfigurationFileNotYmlException
      * @throws Exceptions\Core\Routing\ActionNotFoundException
@@ -38,7 +62,10 @@ class Kernel
         $router->enableRouting($uri, $method);
     }
 
-    public function exception_handler (\Throwable $e)
+    /**
+     * @param Throwable $e
+     */
+    public function exception_handler (Throwable $e)
     {
         echo "<pre>";
 
