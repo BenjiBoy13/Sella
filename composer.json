@@ -20,6 +20,9 @@
         "classmap": ["Stella/"]
     },
     "license": "MIT",
+    "bin": [
+        "stella"
+    ],
     "authors": [
         {
             "name": "Benjamin Gil Flores",

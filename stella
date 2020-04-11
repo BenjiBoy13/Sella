@@ -1,0 +1,36 @@
+#!/usr/bin/env php
+<?php declare(strict_types = 1);
+
+// Possible autoload files
+$autoloadFiles = array(
+    "./vendor/autoload.php",
+    "../vendor/autoload.php",
+    "../../vendor/autoload.php"
+);
+
+// Searching for autoload file and requiring it
+$loaded = false;
+
+foreach ($autoloadFiles as $file) {
+    if (file_exists($file)) {
+        $loaded = true;
+        require_once $file;
+        break;
+    }
+}
+
+// If not autoload file, output error
+if (!$loaded) {
+    print "Error: Unable to load autoload php file";
+    die();
+}
+
+// Setting and executing procedure
+$procedure = isset($argv[1]) ? $argv[1] : "";
+
+$reflection = new \ReflectionClass( \Composer\Autoload\ClassLoader::class);
+
+define("PROJECT_DIR_CLI", dirname($reflection->getFileName(), 3));
+
+\Stella\Modules\Terminal\Terminal::execute($procedure);
+

@@ -2,9 +2,6 @@
 vendor/
 composer.lock
 
-# Env files
-.env
-
 # Unit testing
 .phpunit.result.cache
 
