@@ -4,15 +4,13 @@
 namespace Stella\Modules\Terminal;
 
 /**
- * -----------------------------------------
  * Class Terminal
- * -----------------------------------------
  *
  * Handles the execution of a stella command
  * procedure.
  *
  * @author enjamin Gil Flores
- * @version NaN
+ * @version 0.1
  * @package Stella\Modules\Terminal
  */
 class Terminal

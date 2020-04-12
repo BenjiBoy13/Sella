@@ -9,9 +9,7 @@ use ReflectionMethod;
 use Stella\Core\Configuration;
 
 /**
- * -----------------------------------------
  * Abstract Class Procedure
- * -----------------------------------------
  *
  * Does an procedure for any given
  * command, usually changing or creating new
@@ -20,7 +18,7 @@ use Stella\Core\Configuration;
  * @see StellaProcedureInterface
  *
  * @author Benjamin Gil Flores
- * @version NaN
+ * @version 0.1
  * @package Stella\Modules\Terminal\Procedure
  */
 abstract class Procedure implements StellaProcedureInterface

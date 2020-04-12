@@ -5,13 +5,12 @@ namespace Stella\Core;
 
 
 use Stella\Controllers\StellaController;
-use Stella\Exceptions\Core\Configuration\{ConfigurationFileNotYmlException, ConfigurationFileNotFoundException};
+use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
+use Stella\Exceptions\Core\Configuration\ConfigurationFileNotFoundException;
 use Stella\Exceptions\Core\Routing\{ActionNotFoundException, ControllerNotFoundException, NoRoutesFoundException};
 
 /**
- * -----------------------------------------
  * Class Router
- * -----------------------------------------
  *
  * Connects requested URI and Http Method to proper
  * controller if the requested URI matches one of the
@@ -20,7 +19,7 @@ use Stella\Exceptions\Core\Routing\{ActionNotFoundException, ControllerNotFoundE
  * will be thrown.
  *
  * @author Benjamin Gil FLores
- * @version NaN
+ * @version 0.1
  * @package Stella\Core
  */
 class Router

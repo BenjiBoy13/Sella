@@ -3,19 +3,18 @@
 
 namespace Stella\Modules\Http;
 
-use Stella\Exceptions\Core\Configuration\{ConfigurationFileNotFoundException, ConfigurationFileNotYmlException};
+use Stella\Exceptions\Core\Configuration\ConfigurationFileNotFoundException;
+use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
 use Stella\Core\Configuration;
 use Stella\Exceptions\Modules\Http\InvalidRequestDataModeException;
 
 /**
- * -----------------------------------------
  * Class Http
- * -----------------------------------------
  *
  * Handles connection with the web client
  *
  * @author Benjamin Gil Flores
- * @version NaN
+ * @version 0.1
  * @package Stella\Core
  */
 class Http

@@ -4,15 +4,13 @@
 namespace Stella\Modules\Terminal;
 
 /**
- * -----------------------------------------
  * Class TerminalOutput
- * -----------------------------------------
  *
  * Manages the output streams send back to
  * terminal
  *
  * @author Benjamin Gil Flores
- * @version NaN
+ * @version 0.1
  * @package Stella\Modules\Terminal
  */
 class TerminalOutput

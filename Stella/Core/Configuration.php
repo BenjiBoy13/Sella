@@ -9,14 +9,12 @@ use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * -----------------------------------------
  * Class Configuration
- * -----------------------------------------
  *
  * Reads configuration of application
  *
  * @author Benjamin Gil Flores
- * @version NaN
+ * @version 0.1
  * @package Stella\Core
  */
 class Configuration

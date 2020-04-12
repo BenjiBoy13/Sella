@@ -8,14 +8,12 @@ use Twig\Extension\AbstractExtension;
 use Twig\Extension\ExtensionInterface;
 
 /**
- * -----------------------------------------
  * Class StellaTwigFilters
- * -----------------------------------------
  *
  * Defines Stella Twig filters extension
  *
  * @author Benjamin Gil Flores
- * @version NaN
+ * @version 0.1
  * @package Stella\Modules\Twig\Extensions
  */
 class StellaTwigFilters extends AbstractExtension implements ExtensionInterface

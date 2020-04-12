@@ -4,12 +4,10 @@
 namespace Stella\Modules\Terminal\Procedure;
 
 /**
- * -----------------------------------------
  * Interface StellaProcedureInterface
- * -----------------------------------------
  *
  * @author Benjamin Gil Flores
- * @version NaN
+ * @version 0.1
  * @package Stella\Modules\Terminal\Procedure
  */
 interface StellaProcedureInterface

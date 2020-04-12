@@ -7,3 +7,6 @@ composer.lock
 
 # IDE
 .idea
+
+# PHP Documentor
+phpDocumentor.phar

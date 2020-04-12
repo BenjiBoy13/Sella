@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>Stella API Documentation</title>
+    <parser>
+        <target> ./docs </target>
+        <default-package-name>Stella</default-package-name>
+        <encoding>utf8</encoding>
+        <markers>
+            <item>TODO</item>
+            <item>FIXME</item>
+        </markers>
+    </parser>
+    <transformer>
+        <target>./docs</target>
+    </transformer>
+    <files>
+        <directory> ./Stella </directory>
+        <ignore> ./Stella/config/ </ignore>
+        <ignore> ./Stella/Controllers/Tests/ </ignore>
+        <ignore> ./Stella/Modules/Twig/Extensions/Tests/ </ignore>
+        <ignore> ./Stella/Resources/ </ignore>
+        <ignore> ./Stella/Tests/ </ignore>
+    </files>
+</phpdoc>

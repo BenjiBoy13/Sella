@@ -8,11 +8,14 @@ use Stella\Core\Router;
 use Stella\Modules\Http\Http;
 use Symfony\Component\Dotenv\Dotenv;
 use Throwable;
+use Stella\Exceptions\Core\Configuration\ConfigurationFileNotFoundException;
+use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
+use Stella\Exceptions\Core\Routing\ActionNotFoundException;
+use Stella\Exceptions\Core\Routing\ControllerNotFoundException;
+use Stella\Exceptions\Core\Routing\NoRoutesFoundException;
 
 /**
- * -----------------------------------------
  * Class Kernel
- * -----------------------------------------
  *
  * Stella Kernel, fires up the framework by
  * taking the incoming request and hands it
@@ -25,7 +28,7 @@ use Throwable;
  * to be handled properly.
  *
  * @author Benjamin Gil Flores
- * @version NaN
+ * @version 0.1
  * @package Stella
  */
 class Kernel
@@ -36,11 +39,11 @@ class Kernel
      * root directory, takes the incoming request
      * and fires up the application.
      *
-     * @throws Exceptions\Core\Configuration\ConfigurationFileNotFoundException
-     * @throws Exceptions\Core\Configuration\ConfigurationFileNotYmlException
-     * @throws Exceptions\Core\Routing\ActionNotFoundException
-     * @throws Exceptions\Core\Routing\ControllerNotFoundException
-     * @throws Exceptions\Core\Routing\NoRoutesFoundException
+     * @throws ConfigurationFileNotFoundException
+     * @throws ConfigurationFileNotYmlException
+     * @throws ActionNotFoundException
+     * @throws ControllerNotFoundException
+     * @throws NoRoutesFoundException
      * @throws ReflectionException
      */
     public function __construct ()
@@ -63,10 +66,14 @@ class Kernel
     }
 
     /**
+     * Catches all exceptions and logs them in
+     * view
+     *
      * @param Throwable $e
      */
     public function exception_handler (Throwable $e)
     {
+        // TODO: render error in twig template
         echo "<pre>";
 
         print_r($e->getMessage() . "\n");

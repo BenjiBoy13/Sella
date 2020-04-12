@@ -19,6 +19,9 @@ use Twig\Loader\FilesystemLoader;
 
 /**
  * Class StellaTwigLoader
+ *
+ * @author Benjamin Gil Flores
+ * @version 0.1
  * @package Stella\Modules\Twig
  */
 class StellaTwigLoader

@@ -6,12 +6,10 @@ namespace Stella\Modules\Terminal;
 use Stella\Modules\Terminal\Procedure\StellaProcedureInterface;
 
 /**
- * -----------------------------------------
  * Class ProcedureHandler
- * -----------------------------------------
  *
  * @author Benjamin Gil Flores
- * @version NaN
+ * @version 0.1
  * @package Stella\Modules\Terminal
  */
 class ProcedureHandler

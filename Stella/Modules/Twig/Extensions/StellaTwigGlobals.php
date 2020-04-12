@@ -8,14 +8,12 @@ use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 
 /**
- * -----------------------------------------
  * Class StellaTwigGlobals
- * -----------------------------------------
  *
  * Defines Stella Twig global extension
  *
  * @author Benjamin Gil Flores
- * @version NaN
+ * @version 0.1
  * @package Stella\Modules\Twig\Extensions
  */
 class StellaTwigGlobals extends AbstractExtension implements GlobalsInterface

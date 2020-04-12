@@ -8,15 +8,13 @@ use Stella\Modules\Http\Http;
 use Stella\Modules\Http\Response;
 
 /**
- * -----------------------------------------
  * Class StellaController
- * -----------------------------------------
  *
  * Controller base class, instantiates response
  * and http classes
  *
  * @author Benjamin Gil Flores
- * @version NaN
+ * @version 0.1
  * @package Stella\Controllers
  */
 class StellaController

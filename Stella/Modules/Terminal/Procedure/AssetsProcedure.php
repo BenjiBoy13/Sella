@@ -7,18 +7,16 @@ use Stella\Exceptions\Core\Configuration\ConfigurationFileNotFoundException;
 use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
 
 /**
- * -----------------------------------------
  * Final Class AssetsProcedure
- * -----------------------------------------
  *
- * {@inheritDoc}
+ * {@inheritDoc},
  * This procedure handles the assets files of the
  * application, creating symbolic links between public
  * and src, loading the stella assets to the public folder
  * and so on.
  *
  * @author Benjamin Gil Flores
- * @version NaN
+ * @version 0.1
  * @package Stella\Modules\Terminal\Procedure
  */
 final class AssetsProcedure extends Procedure

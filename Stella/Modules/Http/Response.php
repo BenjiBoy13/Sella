@@ -16,9 +16,7 @@ use Twig\Error\Error;
 use Twig\Error\LoaderError;
 
 /**
- * -----------------------------------------
  * Class Response
- * -----------------------------------------
  *
  * Handles the making of the response for the
  * client including headers and http status
@@ -26,7 +24,7 @@ use Twig\Error\LoaderError;
  * an html view powered by the twig engine
  *
  * @author Benjamin Gil Flores
- * @version NaN
+ * @version 0.1
  * @package Stella\Modules\Http
  */
 class Response
@@ -93,7 +91,7 @@ class Response
      * Sets the http response code
      *
      * @param int $code
-     * @throws InvalidHttpResponseCode
+     * @throws InvalidHttpResponseCode if the http code is not on valid list
      */
     final public function setResponseCode(int $code) : void
     {
