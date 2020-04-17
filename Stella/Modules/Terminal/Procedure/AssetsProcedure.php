@@ -114,7 +114,7 @@ final class AssetsProcedure extends Procedure
         $stellaBundleDirPath = PROJECT_DIR_CLI . "/public/bundles/stella";
         $stellaAssetsDirPath = dirname(__DIR__, 3) . "/Resources/assets";
 
-        if (file_exists($stellaAssetsDirPath)) {
+        if (file_exists($stellaBundleDirPath)) {
             return array(
                 'format' => 'warning',
                 'message' => 'Stella assets already copied, delete stella directory under bundles to copy again'
