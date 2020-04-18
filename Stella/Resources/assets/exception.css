@@ -1,0 +1,31 @@
+#exception .exception-header {
+    padding: 25px;
+    background-color: var(--s-purple);
+    color: var(--s-light-white);
+    margin-bottom: 30px;
+}
+
+#exception .exception-header h3 {
+    word-break: break-all;
+}
+
+@media screen and (max-width: 648px) {
+    #exception .exception-header h1 {
+        font-size: 1.5em;
+    }
+
+    #exception .exception-header h3 {
+        font-size: 1.25em;
+        word-break: break-all;
+    }
+}
+
+#exception .exception-body .accordion  {
+    margin-bottom: 25px;
+}
+
+#exception .exception-body .accordion .card .card-header .btn-link {
+    color: var(--s-purple);
+    word-break: break-all;
+    font-size: large;
+}

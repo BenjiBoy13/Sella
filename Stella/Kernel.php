@@ -6,6 +6,7 @@ use Composer\Autoload\ClassLoader;
 use ReflectionException;
 use Stella\Core\Router;
 use Stella\Modules\Http\Http;
+use Stella\Modules\Http\Response;
 use Symfony\Component\Dotenv\Dotenv;
 use Throwable;
 use Stella\Exceptions\Core\Configuration\ConfigurationFileNotFoundException;
@@ -28,11 +29,14 @@ use Stella\Exceptions\Core\Routing\NoRoutesFoundException;
  * to be handled properly.
  *
  * @author Benjamin Gil Flores
- * @version 0.1
+ * @version 0.1.2
+ * @since 0.1
  * @package Stella
  */
 class Kernel
 {
+    private bool $debug;
+
     /**
      * Kernel constructor.
      * Enables the exception handler, defines the project
@@ -60,6 +64,8 @@ class Kernel
 
         $dotEnv->load(PROJECT_DIR . '/.env');
 
+        $this->debug = $_ENV['DEBUG'];
+
         $method = $http->retrieveRequestedPath()['method'];
         $uri = $http->retrieveRequestedPath()['uri'];
         $router->enableRouting($uri, $method);
@@ -73,16 +79,27 @@ class Kernel
      */
     public function exception_handler (Throwable $e)
     {
-        // TODO: render error in twig template
-        echo "<pre>";
+        try {
+            $response = new Response();
+            $response->setResponseCode(500);
 
-        print_r($e->getMessage() . "\n");
-        print_r($e->getFile() . "\n");
-        print_r($e->getLine() . "\n\n");
+            $exceptionInfo = array(
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTrace()
+            );
 
-        print_r($e->getPrevious());
+            if ($this->debug) {
+                $response->renderView("@Stella/exception.html.twig", $exceptionInfo);
+                return;
+            }
 
-        echo "</pre>";
+            $response->renderView("@Stella/http-error.html.twig");
+
+        } catch (\Exception $e) {
+            print "Fatal: " . $e->getMessage();
+        }
     }
 }
 

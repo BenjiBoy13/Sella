@@ -1,0 +1,18 @@
+{% extends '@Stella/base.html.twig' %}
+
+{% block title %}
+    Stella | 500
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('stella/http-error.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <section id="http-error">
+        <div class="error-box">
+            <h1> 500 </h1>
+            <p> Internal server error </p>
+        </div>
+    </section>
+{% endblock %}

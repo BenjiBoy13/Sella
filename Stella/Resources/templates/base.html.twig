@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        {% block title %} {% endblock %}
+    </title>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('stella/bootstrap/bootstrap.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('stella/globals.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('stella/main.css') }}" />
+    {% block stylesheets %} {% endblock %}
+</head>
+<body>
+    <main>
+        {% block body %} {% endblock %}
+    </main>
+
+    <script rel="script" type="text/javascript" src="{{ asset('stella/libs/jquery.min.js') }}"></script>
+    <script rel="script" type="text/javascript" src="{{ asset('stella/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    {% block scripts %} {% endblock %}
+</body>
+</html>

@@ -10,3 +10,8 @@ composer.lock
 
 # PHP Documentor
 phpDocumentor.phar
+
+# Test App
+config/
+public/
+src/

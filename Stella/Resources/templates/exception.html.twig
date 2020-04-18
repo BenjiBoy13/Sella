@@ -1,0 +1,54 @@
+{% extends '@Stella/base.html.twig' %}
+
+{% block title %}
+    Stella | Exception
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('stella/exception.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div id="exception">
+        <section class="exception-header">
+            <h1> {{ message }} </h1>
+            <h3> Thrown at {{ file  }}::{{ line }} </h3>
+        </section>
+        <section class="exception-body container-fluid">
+            <div class="trace">
+                {% for key, info in trace %}
+                    <div class="accordion" id="trace-accordion-{{ key }}">
+                        <div class="card">
+                            <div class="card-header" id="trace-header-{{ key }}">
+                                <h2>
+                                    <button
+                                            class="btn btn-link"
+                                            type="button"
+                                            data-toggle="collapse"
+                                            data-target="#trace-collapse-{{ key }}"
+                                            aria-expanded="false"
+                                            aria-controls="trace-collapse-{{ key }}"
+                                    >
+                                        {{ info.file }}::{{ info.line }}
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div
+                                    class="collapse show"
+                                    id="trace-collapse-{{ key }}"
+                                    aria-labelledby="trace-header-{{ key }}"
+                                    data-parent="#trace-accordion-{{ key }}"
+                            >
+                                <div class="card-body">
+                                    <p> Class: {{ (info.class is defined) ? info.class : '' }} </p>
+                                    <p> Method: {{ (info.function is defined) ? info.function : '' }} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+{% endblock %}
