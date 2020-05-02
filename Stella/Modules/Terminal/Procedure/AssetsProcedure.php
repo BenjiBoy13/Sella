@@ -9,14 +9,14 @@ use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
 /**
  * Final Class AssetsProcedure
  *
- * {@inheritDoc},
  * This procedure handles the assets files of the
  * application, creating symbolic links between public
  * and src, loading the stella assets to the public folder
  * and so on.
  *
  * @author Benjamin Gil Flores
- * @version 0.1
+ * @version 0.3
+ * @since 0.1
  * @package Stella\Modules\Terminal\Procedure
  */
 final class AssetsProcedure extends Procedure
@@ -42,11 +42,10 @@ final class AssetsProcedure extends Procedure
      *
      * @return array
      * @throws ConfigurationFileNotFoundException
-     * @throws ConfigurationFileNotYmlException
      */
     protected function install (): array
     {
-        $serverConf = $this->configuration->getConfigurationOfFile(PROJECT_DIR_CLI . "/config/server.yml");
+        $serverConf = $this->configuration->getConfigurationOfFile('server');
         $bundlesDirPath = PROJECT_DIR_CLI . "/public/bundles";
 
         // Creates bundles directory

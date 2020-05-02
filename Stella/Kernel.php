@@ -3,7 +3,7 @@
 namespace Stella;
 
 use Composer\Autoload\ClassLoader;
-use ReflectionException;
+use Exception;
 use Stella\Core\Router;
 use Stella\Modules\Http\Http;
 use Stella\Modules\Http\Response;
@@ -29,7 +29,7 @@ use Stella\Exceptions\Core\Routing\NoRoutesFoundException;
  * to be handled properly.
  *
  * @author Benjamin Gil Flores
- * @version 0.1.2
+ * @version 0.3
  * @since 0.1
  * @package Stella
  */
@@ -48,7 +48,7 @@ class Kernel
      * @throws ActionNotFoundException
      * @throws ControllerNotFoundException
      * @throws NoRoutesFoundException
-     * @throws ReflectionException
+     * @throws Exceptions\Core\Configuration\ConfigurationRoutesDirectoryNotFoundException
      */
     public function __construct ()
     {
@@ -97,7 +97,7 @@ class Kernel
 
             $response->renderView("@Stella/http-error.html.twig");
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             print "Fatal: " . $e->getMessage();
         }
     }

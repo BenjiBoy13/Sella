@@ -5,9 +5,8 @@ namespace Stella\Core;
 
 
 use Stella\Controllers\StellaController;
-use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
-use Stella\Exceptions\Core\Configuration\ConfigurationFileNotFoundException;
 use Stella\Exceptions\Core\Routing\{ActionNotFoundException, ControllerNotFoundException, NoRoutesFoundException};
+use Stella\Exceptions\Core\Configuration\ConfigurationRoutesDirectoryNotFoundException;
 
 /**
  * Class Router
@@ -19,7 +18,8 @@ use Stella\Exceptions\Core\Routing\{ActionNotFoundException, ControllerNotFoundE
  * will be thrown.
  *
  * @author Benjamin Gil FLores
- * @version 0.1
+ * @version 0.3
+ * @since 0.1
  * @package Stella\Core
  */
 class Router
@@ -43,21 +43,16 @@ class Router
      *
      * @param string $requestedPath
      * @param string $requestedMethod
-     * @param bool $testRoutes
      * @return bool
      * @throws ActionNotFoundException
-     * @throws ConfigurationFileNotFoundException
-     * @throws ConfigurationFileNotYmlException
      * @throws ControllerNotFoundException
      * @throws NoRoutesFoundException
+     * @throws ConfigurationRoutesDirectoryNotFoundException
      */
-    public function enableRouting (string $requestedPath, string $requestedMethod, bool $testRoutes = false) : bool
+    public function enableRouting (string $requestedPath, string $requestedMethod) : bool
     {
-        if ($testRoutes) {
-            $routes = $this->configuration->getRoutesOutOfConfigurationFiles( dirname(__DIR__, 1) . "/config/tests/routes/");
-        } else {
-            $routes = $this->configuration->getRoutesOutOfConfigurationFiles(PROJECT_DIR . '/config/routes/');
-        }
+
+        $routes = $this->configuration->getRoutesOutOfConfigurationFiles();
 
         // Verifying that there are routes defined in the configuration files
         if (empty($routes)) {
@@ -165,7 +160,7 @@ class Router
     private function checkIfParameter (string $pathFragment) : bool
     {
         if (preg_match("#\((.*?)\)#", $pathFragment, $match)) {
-            return ($match[0] === "(var)") ? true : false;
+            return $match[0] === "(var)";
         }
 
         return false;

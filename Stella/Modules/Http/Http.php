@@ -4,7 +4,6 @@
 namespace Stella\Modules\Http;
 
 use Stella\Exceptions\Core\Configuration\ConfigurationFileNotFoundException;
-use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
 use Stella\Core\Configuration;
 use Stella\Exceptions\Modules\Http\InvalidRequestDataModeException;
 
@@ -14,7 +13,8 @@ use Stella\Exceptions\Modules\Http\InvalidRequestDataModeException;
  * Handles connection with the web client
  *
  * @author Benjamin Gil Flores
- * @version 0.1
+ * @version 0.3
+ * @since 0.1
  * @package Stella\Core
  */
 class Http
@@ -42,11 +42,10 @@ class Http
      *
      * @return array
      * @throws ConfigurationFileNotFoundException
-     * @throws ConfigurationFileNotYmlException
      */
     public function retrieveRequestedPath () : array
     {
-        $serverConf = $this->configuration->getConfigurationOfFile(PROJECT_DIR . "/config/server.yml");
+        $serverConf = $this->configuration->getConfigurationOfFile("server");
         $uri = isset($serverConf['web_root']) ?
             str_replace($serverConf['web_root'], "", $_SERVER['REQUEST_URI']) :
             $_SERVER['REQUEST_URI'];

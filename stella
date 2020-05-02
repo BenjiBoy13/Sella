@@ -32,5 +32,7 @@ $reflection = new \ReflectionClass( \Composer\Autoload\ClassLoader::class);
 
 define("PROJECT_DIR_CLI", dirname($reflection->getFileName(), 3));
 
+(new \Symfony\Component\Dotenv\Dotenv())->load(PROJECT_DIR_CLI . '/.env');
+
 \Stella\Modules\Terminal\Terminal::execute($procedure);
 

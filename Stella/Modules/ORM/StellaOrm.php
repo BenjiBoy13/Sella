@@ -16,7 +16,8 @@ use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
  * Class StellaOrm
  *
  * @author Benjamin Gil FLores
- * @version 0.2
+ * @version 0.3
+ * @since 0.2
  * @package Stella\Modules\ORM
  */
 class StellaOrm
@@ -37,7 +38,6 @@ class StellaOrm
     /**
      * @return EntityManager
      * @throws ConfigurationFileNotFoundException
-     * @throws ConfigurationFileNotYmlException
      * @throws DBALException
      * @throws ORMException
      */
@@ -57,11 +57,10 @@ class StellaOrm
     /**
      * @return array
      * @throws ConfigurationFileNotFoundException
-     * @throws ConfigurationFileNotYmlException
      */
     private function getDatabaseConfiguration (): array
     {
-        $configuration = $this->configuration->getConfigurationOfFile(PROJECT_DIR . '/config/orm.yml');
+        $configuration = $this->configuration->getConfigurationOfFile('orm');
 
         return array(
             'dbname' => $configuration['dbname'],

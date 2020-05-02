@@ -5,7 +5,7 @@ namespace Stella\Core;
 
 
 use Stella\Exceptions\Core\Configuration\ConfigurationFileNotFoundException;
-use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
+use Stella\Exceptions\Core\Configuration\ConfigurationRoutesDirectoryNotFoundException;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -14,53 +14,54 @@ use Symfony\Component\Yaml\Yaml;
  * Reads configuration of application
  *
  * @author Benjamin Gil Flores
- * @version 0.1
+ * @version 0.3
+ * @since 0.1
  * @package Stella\Core
  */
 class Configuration
 {
     /**
-     * Reads yml out of given configuration file
+     * Reads yml of given configuration package
      * and parses it to an array.
      *
-     * @param string $filePath
+     * @param string $configName
      * @return array
      * @throws ConfigurationFileNotFoundException
-     * @throws ConfigurationFileNotYmlException
      */
-    public function getConfigurationOfFile (string $filePath) : array
+    public function getConfigurationOfFile (string $configName) : array
     {
-        if (!file_exists($filePath)) {
-            throw new ConfigurationFileNotFoundException("The configuration file $filePath was not found");
+        $projectDir = defined('PROJECT_DIR') ? PROJECT_DIR : PROJECT_DIR_CLI;
+
+        $configFile = $projectDir . '/config/config.yml';
+
+        if (!file_exists($configFile)) {
+            throw new ConfigurationFileNotFoundException("The configuration file was not found");
         }
 
-        $fileExtension = pathinfo($filePath)['extension'];
+        $configuration = Yaml::parseFile($configFile);
 
-        if ($fileExtension !== 'yml') {
-            throw new ConfigurationFileNotYmlException("The configuration file $filePath is not a yml file");
+        if (isset($configuration[$configName])) {
+            $this->replaceEnvVariablesInFile($configuration[$configName]);
         }
 
-        $configurationVariablesArray = Yaml::parseFile($filePath);
-
-        if ($configurationVariablesArray) {
-            $this->replaceEnvVariablesInFile($configurationVariablesArray);
-        }
-
-        return $configurationVariablesArray ? $configurationVariablesArray : array();
+        return isset($configuration[$configName]) ? $configuration[$configName] : array();
     }
 
     /**
      * Reads all yml files found in routes directory
      * and parses their content into one routes array.
      *
-     * @param string $routesDirPath
      * @return array
-     * @throws ConfigurationFileNotFoundException
-     * @throws ConfigurationFileNotYmlException
+     * @throws ConfigurationRoutesDirectoryNotFoundException
      */
-    public function getRoutesOutOfConfigurationFiles (string $routesDirPath) : array
+    public function getRoutesOutOfConfigurationFiles () : array
     {
         $routes = array();
+        $routesDirPath = PROJECT_DIR . '/config/routes/';
+
+        if (!is_dir($routesDirPath)) {
+            throw new ConfigurationRoutesDirectoryNotFoundException("The routes directory was not found");
+        }
 
         $routeFiles = scandir($routesDirPath, 1);
 
@@ -68,7 +69,7 @@ class Configuration
             $fileExtension = pathinfo($routesDirPath . $routeFile)['extension'];
 
             if ($fileExtension === 'yml') {
-                $currentRouteFileArray = $this->getConfigurationOfFile($routesDirPath . $routeFile);
+                $currentRouteFileArray = Yaml::parseFile($routesDirPath . $routeFile);
 
                 foreach ($currentRouteFileArray as $key => $value) {
                     $routes[$key] = $value;

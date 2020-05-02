@@ -6,7 +6,6 @@ namespace Stella\Modules\Twig;
 
 use Stella\Core\Configuration;
 use Stella\Exceptions\Core\Configuration\ConfigurationFileNotFoundException;
-use Stella\Exceptions\Core\Configuration\ConfigurationFileNotYmlException;
 use Stella\Exceptions\Modules\Twig\CustomTwigExtensionNotFoundException;
 use Stella\Exceptions\Modules\Twig\DirectoryDoesNotExistException;
 use Stella\Modules\Twig\Extensions\StellaTwigFilters;
@@ -21,7 +20,8 @@ use Twig\Loader\FilesystemLoader;
  * Class StellaTwigLoader
  *
  * @author Benjamin Gil Flores
- * @version 0.1
+ * @version 0.3
+ * @since 0.1
  * @package Stella\Modules\Twig
  */
 class StellaTwigLoader
@@ -112,11 +112,10 @@ class StellaTwigLoader
      * @throws DirectoryDoesNotExistException
      * @throws LoaderError
      * @throws ConfigurationFileNotFoundException
-     * @throws ConfigurationFileNotYmlException
      */
     public function loadTwigConf () : self
     {
-        $twigConfig = $this->configuration->getConfigurationOfFile(PROJECT_DIR . "/config/twig.yml");
+        $twigConfig = $this->configuration->getConfigurationOfFile('twig');
 
         // Declaring custom namespaces
         if (isset($twigConfig['namespaces'])) {
